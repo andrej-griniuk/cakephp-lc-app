@@ -9,6 +9,7 @@
         "cakephp/cakephp": "5.2.*",
         "cakephp/migrations": "^4.0.0",
         "cakephp/plugin-installer": "^2.0",
+        "laravel/framework": "12.8.1",
         "mobiledetect/mobiledetectlib": "^4.8.03"
     },
     "require-dev": {
@@ -53,5 +54,11 @@
         "cs-check": "phpcs --colors -p",
         "cs-fix": "phpcbf --colors -p",
         "test": "phpunit --colors=always"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/andrej-griniuk/laravel-plug.git"
+        }
+    ]
 }
