@@ -236,11 +236,14 @@ ServerRequest::addDetector('tablet', function ($request) {
 if ($logChannel = (string)env('LOG_CHANNEL')) {
     // Laravel Cloud logging
     Log::setConfig('default', function () use ($logChannel) {
+        $connectionString = $_ENV['LARAVEL_CLOUD_LOG_SOCKET']
+            ?? $_SERVER['LARAVEL_CLOUD_LOG_SOCKET']
+            ?? 'unix:///tmp/cloud-init.sock';
+        $handler = new \Monolog\Handler\SocketHandler($connectionString, Level::Debug, true, true);
+        $handler->setFormatter(new \Monolog\Formatter\JsonFormatter());
+
         $log = new \Monolog\Logger('app');
-        $connectionString = $_ENV['LARAVEL_CLOUD_LOG_SOCKET'] ??
-            $_SERVER['LARAVEL_CLOUD_LOG_SOCKET'] ??
-            'unix:///tmp/cloud-init.sock';
-        $log->pushHandler(new \Monolog\Handler\SocketHandler($connectionString, Level::Debug, true, true));
+        $log->pushHandler($handler);
 
         return $log;
     });
