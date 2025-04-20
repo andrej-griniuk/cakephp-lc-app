@@ -242,6 +242,6 @@ if ($logChannel = (string)env('LOG_CHANNEL')) {
     });
 
     // Optionally, stop using the now redundant default loggers
-    Log::drop('debug');
-    Log::drop('error');
+    //Log::drop('debug');
+    //Log::drop('error');
 }
