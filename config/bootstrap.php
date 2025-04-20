@@ -90,6 +90,8 @@ try {
 echo 'APP_NAME: ' . env('APP_NAME') . '<br />';
 echo 'Debug: ' . (int)Configure::read('debug') . '<br />';
 
+die('done');
+
 /*
  * Load an environment local configuration file to provide overrides to your configuration.
  * Notice: For security reasons app_local.php **should not** be included in your git repo.
