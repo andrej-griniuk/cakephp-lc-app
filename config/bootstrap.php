@@ -44,6 +44,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
+use Monolog\Level;
 
 /*
  * Load global functions for collections, translations, debugging etc.
@@ -236,7 +237,10 @@ if ($logChannel = (string)env('LOG_CHANNEL')) {
     // Laravel Cloud logging
     Log::setConfig('default', function () use ($logChannel) {
         $log = new \Monolog\Logger('app');
-        $log->pushHandler(new \Monolog\Handler\SocketHandler($logChannel));
+        $connectionString = $_ENV['LARAVEL_CLOUD_LOG_SOCKET'] ??
+            $_SERVER['LARAVEL_CLOUD_LOG_SOCKET'] ??
+            'unix:///tmp/cloud-init.sock';
+        $log->pushHandler(new \Monolog\Handler\SocketHandler($connectionString, Level::Debug, true, true));
 
         return $log;
     });
