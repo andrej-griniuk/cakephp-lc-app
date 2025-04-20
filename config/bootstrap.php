@@ -65,6 +65,7 @@ require CAKE . 'functions.php';
  * for more information for recommended practices.
 */
 if (!env('APP_NAME') && file_exists(ROOT . DS . '.env')) {
+    echo 'Loading environment variables from .env file<br />';
     $dotenv = new \josegonzalez\Dotenv\Loader([ROOT . DS . '.env']);
     $dotenv->parse()
         ->putenv()
@@ -85,6 +86,9 @@ try {
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
+
+echo 'APP_NAME: ' . env('APP_NAME') . '<br />';
+echo 'Debug: ' . (int)Configure::read('debug') . '<br />';
 
 /*
  * Load an environment local configuration file to provide overrides to your configuration.
