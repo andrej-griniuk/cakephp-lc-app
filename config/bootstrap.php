@@ -64,8 +64,8 @@ require CAKE . 'functions.php';
  * security risks. See https://github.com/josegonzalez/php-dotenv#general-security-information
  * for more information for recommended practices.
 */
-if (!env('APP_NAME') && file_exists(ROOT . '.env')) {
-    $dotenv = new \josegonzalez\Dotenv\Loader([ROOT . '.env']);
+if (!env('APP_NAME') && file_exists(ROOT . DS . '.env')) {
+    $dotenv = new \josegonzalez\Dotenv\Loader([ROOT . DS . '.env']);
     $dotenv->parse()
         ->putenv()
         ->toEnv()
