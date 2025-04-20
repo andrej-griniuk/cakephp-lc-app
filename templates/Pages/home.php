@@ -51,6 +51,7 @@ $checkConnection = function (string $name) {
 };
 
 if (!Configure::read('debug')) :
+    \Cake\Log\Log::debug('Debug mode is disabled. Please enable it to see this page.');
     throw new NotFoundException(
         'Please replace templates/Pages/home.php with your own version or re-enable debug mode.'
     );

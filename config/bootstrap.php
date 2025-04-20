@@ -231,3 +231,17 @@ ServerRequest::addDetector('tablet', function ($request) {
 // and https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
 // \Cake\I18n\Date::setToStringFormat('dd.MM.yyyy');
 // \Cake\I18n\Time::setToStringFormat('dd.MM.yyyy HH:mm');
+
+if ($logChannel = (string)env('LOG_CHANNEL')) {
+    // Laravel Cloud logging
+    Log::setConfig('default', function () {
+        $log = new \Monolog\Logger('app');
+        $log->pushHandler(new \Monolog\Handler\SocketHandler($logChannel));
+
+        return $log;
+    });
+
+    // Optionally, stop using the now redundant default loggers
+    Log::drop('debug');
+    Log::drop('error');
+}
