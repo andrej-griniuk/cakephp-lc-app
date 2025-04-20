@@ -234,7 +234,7 @@ ServerRequest::addDetector('tablet', function ($request) {
 
 if ($logChannel = (string)env('LOG_CHANNEL')) {
     // Laravel Cloud logging
-    Log::setConfig('default', function () {
+    Log::setConfig('default', function () use ($logChannel) {
         $log = new \Monolog\Logger('app');
         $log->pushHandler(new \Monolog\Handler\SocketHandler($logChannel));
 
