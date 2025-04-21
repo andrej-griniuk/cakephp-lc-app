@@ -5,7 +5,7 @@ require __DIR__.'/vendor/autoload.php';
 use App\Application;
 use Cake\Console\CommandRunner;
 
-$originalArgv = $argv;
+$originalArgv = array_values($argv);
 $argv[1] = 'version';
 
 // Build the runner with an application and root executable name.
