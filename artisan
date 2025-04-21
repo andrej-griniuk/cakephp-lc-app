@@ -5,11 +5,12 @@ require __DIR__.'/vendor/autoload.php';
 use App\Application;
 use Cake\Console\CommandRunner;
 
+$originalArgv = $argv;
 $argv[1] = 'version';
 
 // Build the runner with an application and root executable name.
 $runner = new CommandRunner(new Application(__DIR__ . '/config'), 'cake');
 $result = $runner->run($argv);
-var_dump(\Cake\Log\Log::debug('Scheduler started ' . time() . ' ' . var_export($argv, true)));
+var_dump(\Cake\Log\Log::debug('Scheduler started ' . time() . ' ' . var_export($originalArgv, true)));
 
 exit($result);
