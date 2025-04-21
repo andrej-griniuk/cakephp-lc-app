@@ -242,7 +242,7 @@ if ($logChannel = (string)env('LOG_CHANNEL')) {
         $handler = new \Monolog\Handler\SocketHandler($connectionString, Level::Debug, true, true);
         $handler->setFormatter(new \Monolog\Formatter\JsonFormatter());
 
-        $log = new \Monolog\Logger('app');
+        $log = new \Monolog\Logger(PHP_SAPI === 'cli' ? 'cli' : 'app');
         $log->pushHandler($handler);
 
         return $log;
