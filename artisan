@@ -7,7 +7,7 @@ use Cake\Console\CommandRunner;
 
 $argv[1] = 'version';
 
-\Cake\Log\Log::debug('Scheduler started ' . time());
+\Cake\Log\Log::info('Scheduler started ' . time() . ' ' . var_export($argv, true));
 
 // Build the runner with an application and root executable name.
 $runner = new CommandRunner(new Application(__DIR__ . '/config'), 'cake');
