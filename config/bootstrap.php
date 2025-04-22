@@ -233,9 +233,9 @@ ServerRequest::addDetector('tablet', function ($request) {
 // \Cake\I18n\Date::setToStringFormat('dd.MM.yyyy');
 // \Cake\I18n\Time::setToStringFormat('dd.MM.yyyy HH:mm');
 
-if ($logChannel = (string)env('LOG_CHANNEL')) {
+if (file_exists('/tmp/cloud-init.sock')) {
     // Laravel Cloud logging
-    Log::setConfig('default', function () use ($logChannel) {
+    Log::setConfig('default', function () {
         $connectionString = $_ENV['LARAVEL_CLOUD_LOG_SOCKET']
             ?? $_SERVER['LARAVEL_CLOUD_LOG_SOCKET']
             ?? 'unix:///tmp/cloud-init.sock';
