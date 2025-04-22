@@ -1,5 +1,6 @@
 <?php
 
+use Cake\Cache\Engine\FileEngine;
 use Cake\Cache\Engine\RedisEngine;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
@@ -96,7 +97,7 @@ return [
      */
     'Cache' => [
         'default' => [
-            'className' => RedisEngine::class,
+            'className' => FileEngine::class,
             'path' => CACHE,
             'url' => env('CACHE_DEFAULT_URL', null),
         ],
@@ -108,7 +109,7 @@ return [
          * If you set 'className' => 'Null' core cache will be disabled.
          */
         '_cake_translations_' => [
-            'className' => RedisEngine::class,
+            'className' => FileEngine::class,
             'prefix' => 'myapp_cake_translations_',
             'path' => CACHE . 'persistent' . DS,
             'serialize' => true,
@@ -123,7 +124,7 @@ return [
          * Duration will be set to '+2 minutes' in bootstrap.php when debug = true
          */
         '_cake_model_' => [
-            'className' => RedisEngine::class,
+            'className' => FileEngine::class,
             'prefix' => 'myapp_cake_model_',
             'path' => CACHE . 'models' . DS,
             'serialize' => true,
