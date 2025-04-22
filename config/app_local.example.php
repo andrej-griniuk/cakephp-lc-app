@@ -5,6 +5,17 @@
  * Note: It is not recommended to commit files with credentials such as app_local.php
  * into source code version control.
  */
+
+$databaseUrl = env('DATABASE_URL');
+if (env('DB_HOST')) {
+    $databaseUrl = '://' . env('DB_USERNAME') . ':' . env('DB_PASSWORD') . '@' . env('DB_PASSWORD') . ':' . env('DB_PORT') . '/' . env('DB_DATABASE');
+    if (env('DB_CONNECTION') === 'pgsql') {
+        $databaseUrl = 'postgres' . $databaseUrl . '?charset=utf8';
+    } else {
+        $databaseUrl  = 'mysql' . $databaseUrl;
+    }
+}
+
 return [
     /*
      * Debug Level:
@@ -15,7 +26,7 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('DEBUG', env('APP_DEBUG', true)), FILTER_VALIDATE_BOOLEAN),
 
     /*
      * Security and encryption configuration
@@ -36,7 +47,9 @@ return [
      */
     'Datasources' => [
         'default' => [
-            'driver' => \Cake\Database\Driver\Postgres::class,
+            'driver' => env('DB_CONNECTION') === 'pgsql'
+                ? \Cake\Database\Driver\Postgres::class
+                : \Cake\Database\Driver\Mysql::class,
             'host' => 'localhost',
             /*
              * CakePHP will use the default DB port based on the driver selected
@@ -58,7 +71,7 @@ return [
             /*
              * You can use a DSN string to set the entire configuration
              */
-            'url' => env('DATABASE_URL', null),
+            'url' => env('DATABASE_URL', $databaseUrl),
         ],
 
         /*
