@@ -8,7 +8,7 @@
 
 $databaseUrl = env('DATABASE_URL');
 if (env('DB_HOST')) {
-    $databaseUrl = '://' . env('DB_USERNAME') . ':' . env('DB_PASSWORD') . '@' . env('DB_PASSWORD') . ':' . env('DB_PORT') . '/' . env('DB_DATABASE');
+    $databaseUrl = '://' . env('DB_USERNAME') . ':' . env('DB_PASSWORD') . '@' . env('DB_HOST') . ':' . env('DB_PORT') . '/' . env('DB_DATABASE');
     if (env('DB_CONNECTION') === 'pgsql') {
         $databaseUrl = 'postgres' . $databaseUrl . '?charset=utf8';
     } else {
