@@ -1,16 +1,44 @@
 #!/usr/bin/php -q
 <?php
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 use App\Application;
 use Cake\Console\CommandRunner;
 
-$originalArgv = array_values($argv);
-$argv[1] = 'version';
+$executable = array_shift($argv);
+$artisanCommand = array_shift($argv);
+$artisanParams = $argv;
+$commands = [];
+$params = [];
+
+// Map Artisan commands to CakePHP commands
+$newArgv = [$executable];
+switch ($artisanCommand) {
+    case 'list':
+        break;
+    case 'migrate':
+        $commands = ['migrations', 'migrate'];
+        break;
+    case 'schedule:run':
+        // dereuromark/cakephp-queue-scheduler plugin
+        $commands = ['scheduler', 'run'];
+        // lordsimal/cakephp-scheduler plugin
+        //$commands = ['schedule:run'];
+        break;
+    case 'queue:work':
+        // dereuromark/cakephp-queue plugin
+        $commands = ['queue', 'run'];
+        // cakephp/queue plugin
+        //$commands = ['queue', 'work'];
+        break;
+    default:
+        $commands = [$artisanCommand];
+        $params = $artisanParams;
+        break;
+}
+
+$newArgv = array_merge([$executable], $commands, $params);
 
 // Build the runner with an application and root executable name.
 $runner = new CommandRunner(new Application(__DIR__ . '/config'), 'cake');
-$result = $runner->run($argv);
-var_dump(\Cake\Log\Log::debug('Scheduler started ' . time() . ' ' . var_export($originalArgv, true)));
-
-exit($result);
+exit($runner->run($newArgv));
