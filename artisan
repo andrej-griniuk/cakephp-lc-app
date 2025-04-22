@@ -17,7 +17,7 @@ switch ($artisanCommand) {
     case 'list':
         break;
     case 'migrate':
-        $commands = ['migrations', 'migrate'];
+        $commands = ['migrations', 'migrate', '--no-lock'];
         break;
     case 'schedule:run':
         // dereuromark/cakephp-queue-scheduler plugin

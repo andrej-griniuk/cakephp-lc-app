@@ -1,7 +1,6 @@
 <?php
 
 use Cake\Cache\Engine\FileEngine;
-use Cake\Cache\Engine\RedisEngine;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Cake\Log\Engine\FileLog;
