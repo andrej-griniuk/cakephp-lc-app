@@ -36,6 +36,7 @@ return [
      */
     'Datasources' => [
         'default' => [
+            'driver' => \Cake\Database\Driver\Postgres::class,
             'host' => 'localhost',
             /*
              * CakePHP will use the default DB port based on the driver selected
