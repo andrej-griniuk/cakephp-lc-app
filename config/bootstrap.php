@@ -45,6 +45,7 @@ use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
 use Monolog\Level;
+use function Cake\Core\env;
 
 /*
  * Load global functions for collections, translations, debugging etc.
